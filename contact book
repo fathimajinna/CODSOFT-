@@ -1,0 +1,111 @@
+from tkinter import*
+root=Tk()
+root.geometru=('700x600')
+root.configure(bg='turquoise')
+datas=[]
+def add():
+    global datas
+    datas.append([Name.get(),Number.get(),email.get(),address.get(1.0,"end-1c")])
+    update_book()
+def view():
+    
+        selected_index = int(select.curselection()[0])
+        Name.set(datas[selected_index][0])
+        Number.set(datas[selected_index][1])
+        email.set(datas[selected_index][2])
+        address.delete(1.0, "end-1c")
+        address.insert(1.0, datas[selected_index][3])
+    
+def delete():
+      del datas[int(select.curselection()[0])]
+      update_book()
+
+def update_book():
+    select.delete(0,END)
+    for idx, data in enumerate(datas):
+        select.insert(END,f"{idx+1}.{data[0]}")
+
+def search():
+     query=search_var.get().lower()
+     select.delete(0,END)
+     for idx, data in enumerate(datas):
+         if query in data[0].lower() or query in data[1].lower() or query in data[2].lower() or query in data[3].lower():
+             select.insert(END, f"{idx+1}.{data[0]}")
+
+def clear():
+    Name.set("")
+    Number.set("")
+    email.set("")
+    address.delete(1.0,"end-1c")
+    
+Name=StringVar()
+Number=StringVar()
+email=StringVar()
+search_var=StringVar()
+
+frame0=Frame(bg='papaya whip')
+frame0.pack()
+
+frame=Frame(bg='papaya whip')
+frame.pack(pady=10)
+
+frame1=Frame(bg='papaya whip')
+frame1.pack()
+
+frame2=Frame(bg='papaya whip')
+frame2.pack(pady=10)
+
+frame3=Frame(bg='papaya whip')
+frame3.pack(pady=10)
+
+frame4=Frame(bg='papaya whip')
+frame4.pack(pady=10)
+
+Label(frame0,text='CONTACT BOOK',font='ivy 25 italic',bg='turquoise').pack(side=LEFT)
+
+Label(frame,text='Name',font='ivy 13 bold',bg='papaya whip').pack(side=LEFT)
+Entry(frame,textvariable=Name,width=50).pack()
+
+Label(frame1,text='Number',font='ivy 13 bold',bg='papaya whip').pack(side=LEFT)
+Entry(frame1,textvariable=Number,width=50).pack()
+
+
+Label(frame2,text='email',font='ivy 13 bold',bg='papaya whip').pack(side=LEFT)
+Entry(frame2,textvariable=email,width=50).pack()
+
+
+Label(frame3,text='address',font='ivy 13 bold',bg='papaya whip').pack(side=LEFT)
+address=Text(frame3,width=45,height=10)
+address.pack()
+
+Label(frame4,text='search',font='ivy 13 bold',bg='papaya whip').pack(side=LEFT)
+Entry(frame4,textvariable=search_var,width=50).pack()
+
+Button(root,text="ADD",font="ivy 13 bold",command=add,bg='pink',fg='black').place(x=900,y=430)
+Button(root,text="DELETE",font="ivy 13 bold",command=delete,bg='pink',fg='black').place(x=900,y=480)
+Button(root,text="VIEW",font="ivy 13 bold",command=view,bg='pink',fg='black').place(x=900,y=530)
+Button(root,text="SEARCH",font="ivy 13 bold",command=search,bg='pink',fg='black').place(x=900,y=345)
+Button(root,text="CLEAR",font="ivy 13 bold",command=clear,bg='pink',fg='black').place(x=900,y=580)
+
+frame5=Frame()
+frame5.pack(pady=20)
+
+select=Listbox(frame5,height=10)
+select.pack()
+
+root.mainloop()
+
+
+
+
+
+
+
+                                                            
+
+       
+
+
+
+
+
